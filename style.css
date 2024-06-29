@@ -1,0 +1,82 @@
+body {
+      margin: 0;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
+}
+
+#post-area {
+      display: flex;
+      flex-direction: column;
+      margin: 0 40%;
+}
+
+.post-header {
+      display: flex;
+      align-items: center;
+      margin-top: 16px;
+}
+
+.profile-img {
+      border-radius: 100%;
+      width: 32px;
+      height: 32px;
+      object-fit: cover;
+      margin: 8px 16px 8px 8px;
+}
+
+.info-container {
+      display: flex;
+      flex-direction: column;
+}
+
+.author-recency-container {
+      display: flex;
+      gap: 16px;
+      text-align: center;
+}
+
+.comment-container {
+      display: flex;
+      gap: 16px;
+      text-align: center;
+}
+
+.author {
+      margin: 0;
+      font-size: 12px;
+}
+
+.light-gray {
+      margin: 0;
+      font-size: 12px;
+      color: gray;
+      font-weight: initial;
+}
+
+.cursor-pointer {
+      cursor: pointer;
+}
+
+.location {
+      margin: 0;
+      font-size: 12px;
+      font-weight: initial;
+}
+
+h3 {
+      font-size: 12px;
+      margin: 4px 0;
+}
+
+p {
+      font-size: 12px;
+      margin: 4px 0;
+}
+
+#comment-input-container {
+      display: flex;
+}
+
+.display-none {
+      display: none;
+}
