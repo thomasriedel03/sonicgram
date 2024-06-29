@@ -63,6 +63,14 @@ body {
       font-weight: initial;
 }
 
+.like-button {
+      filter: invert(100%);
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      margin-top: 8px;
+}
+
 h3 {
       font-size: 12px;
       margin: 4px 0;

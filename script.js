@@ -5,6 +5,7 @@ let posts = [
             location: 'München',
             recency: '1 Wo.',
             image: 'img/img1.jpg',
+            likes: '452',
             description: 'Just generated this with AI...',
             commentingUsers: ['sxmxn.huettnr', 'worst.nightmare'],
             comments: ['Wow!', 'Interessant!'],
@@ -15,6 +16,7 @@ let posts = [
             location: 'North Pole',
             recency: '3 Wo.',
             image: 'img/img2.jpg',
+            likes: '73816',
             description: 'I have something for you! 😊',
             commentingUsers: ['christopher.nolan', 'jennifer.lawrence'],
             comments: ['Ich freue mich schon!', 'Fascinating!'],
@@ -23,8 +25,9 @@ let posts = [
             profileImage: 'pb/pb3.jpg',
             author: 'lxrs.balthasar',
             location: 'Herold',
-            recency: '1 Mo.',
+            recency: '4 Std.',
             image: 'img/img3.jpg',
+            likes: '27',
             description: 'working on it...',
             commentingUsers: ['kevin.hauser', 'justin.dreher', 'magda_123'],
             comments: ['You got this!', 'Fascinating!', 'I believe in you!'],
@@ -51,15 +54,17 @@ function render() {
                             </div>
                         </div>  
                         <img src="${post['image']}">
+                        <img src="graphics/herz.png" onclick="like(${i})" id="like-button-${i}" class="like-button"><!-- <a href="https://www.flaticon.com/de/kostenlose-icons/herz" title="herz Icons">Herz Icons erstellt von Freepik - Flaticon</a> -->
+                        <h3>Gefällt ${post['likes']} Mal</h3>
                         <div class="comment-container">
                             <h3>${post['author']}</h3>
                             <p>${post['description']}</p>
                         </div>
                         <div id="comment-section-${i}"></div>
-                        <h3 onclick="showCommentInput(${i})" class="light-gray cursor-pointer">add comment...</h3>
+                        <h3 onclick="showCommentInput(${i})" class="light-gray cursor-pointer">Kommentieren...</h3>
                         <div id="comment-input-container">
                             <input id="comment-input-${i}" class="display-none">
-                            <button onclick="addComment(${i})" id="add-comment-button-${i}" class="display-none">comment</button>
+                            <button onclick="addComment(${i})" id="add-comment-button-${i}" class="display-none">Posten</button>
                         </div>
                     
 
@@ -89,6 +94,12 @@ function getSavedArrays() {
                   post['comments'] = getArray(`${i}-comments`);
             }
       }
+}
+
+function like(currentPost) {
+      let heart = document.getElementById(`like-button-${currentPost}`);
+      heart.src = 'graphics/ausgefülltes_rotes_herz.png';
+      heart.style = 'filter: none';
 }
 
 function showCommentInput(currentPost) {
