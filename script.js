@@ -32,6 +32,8 @@ let posts = [
 ];
 
 function render() {
+      getSavedArrays();
+
       document.getElementById('post-area').innerHTML = '';
 
       for (let i = 0; i < posts.length; i++) {
@@ -78,6 +80,17 @@ function render() {
       }
 }
 
+function getSavedArrays() {
+      for (let i = 0; i < posts.length; i++) {
+            const post = posts[i];
+
+            if (getArray(`${i}-commentingUsers`) !== null && getArray(`${i}-comments`) !== null) {
+                  post['commentingUsers'] = getArray(`${i}-commentingUsers`);
+                  post['comments'] = getArray(`${i}-comments`);
+            }
+      }
+}
+
 function showCommentInput(currentPost) {
       document.getElementById(`comment-input-${currentPost}`).classList.remove('display-none');
       document.getElementById(`add-comment-button-${currentPost}`).classList.remove('display-none');
@@ -85,17 +98,18 @@ function showCommentInput(currentPost) {
 
 function addComment(currentPost) {
       let newComment = document.getElementById(`comment-input-${currentPost}`).value;
-      document.getElementById(`comment-section-${currentPost}`).innerHTML += /*html*/ `
-        <div class="comment-container">
-            <h3>You</h3>
-            <p>${newComment}</p>
-        </div>
-      `;
+
+      posts[currentPost]['commentingUsers'].push('You');
+      posts[currentPost]['comments'].push(newComment);
+      setArray(`${currentPost}-commentingUsers`, posts[currentPost]['commentingUsers']);
+      setArray(`${currentPost}-comments`, posts[currentPost]['comments']);
 
       document.getElementById(`comment-input-${currentPost}`).value = '';
 
       document.getElementById(`comment-input-${currentPost}`).classList.add('display-none');
       document.getElementById(`add-comment-button-${currentPost}`).classList.add('display-none');
+
+      render();
 }
 
 function setArray(key, array) {
