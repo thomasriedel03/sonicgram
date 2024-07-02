@@ -6,6 +6,7 @@ let posts = [
             recency: '1 Wo.',
             image: 'img/img1.jpg',
             likes: '452',
+            liked: false,
             description: 'Just generated this with AI...',
             commentingUsers: ['sxmxn.huettnr', 'worst.nightmare'],
             comments: ['Wow!', 'Interessant!'],
@@ -17,6 +18,7 @@ let posts = [
             recency: '3 Wo.',
             image: 'img/img2.jpg',
             likes: '73816',
+            liked: true,
             description: 'I have something for you! 😊',
             commentingUsers: ['christopher.nolan', 'jennifer.lawrence'],
             comments: ['Ich freue mich schon!', 'Fascinating!'],
@@ -28,6 +30,7 @@ let posts = [
             recency: '4 Std.',
             image: 'img/img3.jpg',
             likes: '27',
+            liked: false,
             description: 'working on it...',
             commentingUsers: ['kevin.hauser', 'justin.dreher', 'magda_123'],
             comments: ['You got this!', 'Fascinating!', 'I believe in you!'],
@@ -54,7 +57,8 @@ function render() {
                             </div>
                         </div>  
                         <img src="${post['image']}">
-                        <img src="graphics/herz.png" onclick="like(${i})" id="like-button-${i}" class="like-button"><!-- <a href="https://www.flaticon.com/de/kostenlose-icons/herz" title="herz Icons">Herz Icons erstellt von Freepik - Flaticon</a> -->
+                        <!-- <a href="https://www.flaticon.com/de/kostenlose-icons/herz" title="herz Icons">Herz Icons erstellt von Freepik - Flaticon</a>-->
+                        <div id="like-button-container-${i}"></div>
                         <h3>Gefällt ${post['likes']} Mal</h3>
                         <div class="comment-container">
                             <h3>${post['author']}</h3>
@@ -82,7 +86,40 @@ function render() {
                     </div>
                   `;
             }
+            renderLikes(i);
       }
+}
+
+function renderLikes(currentPost) {
+      likeButtonContainer = document.getElementById(`like-button-container-${currentPost}`);
+      likeButtonContainer.innerHTML = '';
+
+      if (posts[currentPost]['liked'] === true) {
+            likeButtonContainer.innerHTML += /*html*/ `
+                  <img src="graphics/ausgefülltes_rotes_herz.png" class="unlike-button" id="like-button-${currentPost}" onclick="toggleLike(${currentPost})">
+            `;
+      } else {
+            likeButtonContainer.innerHTML += /*html*/ `
+                  <img src="graphics/herz.png" class="like-button" id="like-button-${currentPost}" onclick="toggleLike(${currentPost})">
+            `;
+      }
+}
+
+function toggleLike(currentPost) {
+      let likeButton = document.getElementById(`like-button-${currentPost}`);
+
+      if (posts[currentPost]['liked'] === true) {
+            posts[currentPost]['liked'] = false;
+            posts[currentPost]['likes'] = +posts[currentPost]['likes'] - 1;
+      } else {
+            posts[currentPost]['liked'] = true;
+            posts[currentPost]['likes'] = +posts[currentPost]['likes'] + 1;
+      }
+
+      setArray(`${currentPost}-liked`, posts[currentPost]['liked']);
+      setArray(`${currentPost}-likes`, posts[currentPost]['likes']);
+
+      render();
 }
 
 function getSavedArrays() {
@@ -93,13 +130,12 @@ function getSavedArrays() {
                   post['commentingUsers'] = getArray(`${i}-commentingUsers`);
                   post['comments'] = getArray(`${i}-comments`);
             }
-      }
-}
 
-function like(currentPost) {
-      let heart = document.getElementById(`like-button-${currentPost}`);
-      heart.src = 'graphics/ausgefülltes_rotes_herz.png';
-      heart.style = 'filter: none';
+            if (getArray(`${i}-liked`) !== null && getArray(`${i}-likes`) !== null) {
+                  post['liked'] = getArray(`${i}-liked`);
+                  post['likes'] = getArray(`${i}-likes`);
+            }
+      }
 }
 
 function showCommentInput(currentPost) {

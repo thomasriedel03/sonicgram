@@ -71,6 +71,13 @@ body {
       margin-top: 8px;
 }
 
+.unlike-button {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      margin-top: 8px;
+}
+
 h3 {
       font-size: 12px;
       margin: 4px 0;
