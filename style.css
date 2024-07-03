@@ -4,10 +4,23 @@ body {
       color: white;
 }
 
+#content {
+      display: flex;
+}
+
+#left-border {
+      width: 40%;
+}
+
+#right-border {
+      width: 40%;
+}
+
 #post-area {
+      flex: 1;
       display: flex;
       flex-direction: column;
-      margin: 0 40%;
+      width: 300px;
 }
 
 .post-header {
@@ -61,6 +74,13 @@ body {
       margin: 0;
       font-size: 12px;
       font-weight: initial;
+}
+
+.main-image {
+      border-radius: 4px;
+      width: 300px;
+      height: auto;
+      object-fit: cover;
 }
 
 .like-button {

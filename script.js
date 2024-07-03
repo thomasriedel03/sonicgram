@@ -46,6 +46,7 @@ function render() {
             const post = posts[i];
 
             document.getElementById('post-area').innerHTML += generatePostAreaHTML(post, i);
+
             for (let j = 0; j < post['comments'].length; j++) {
                   const commentingUser = post['commentingUsers'][j];
                   const comment = post['comments'][j];
@@ -89,7 +90,7 @@ function generatePostAreaHTML(post, i) {
                                 <h4 class="location">${post['location']}</h4>
                             </div>
                         </div>  
-                        <img src="${post['image']}">
+                        <img src="${post['image']}" class="main-image">
                         <!-- <a href="https://www.flaticon.com/de/kostenlose-icons/herz" title="herz Icons">Herz Icons erstellt von Freepik - Flaticon</a>-->
                         <div id="like-button-container-${i}"></div>
                         <h3>Gefällt ${post['likes']} Mal</h3>
