@@ -45,7 +45,40 @@ function render() {
       for (let i = 0; i < posts.length; i++) {
             const post = posts[i];
 
-            document.getElementById('post-area').innerHTML += /*html*/ `
+            document.getElementById('post-area').innerHTML += generatePostAreaHTML(post, i);
+            for (let j = 0; j < post['comments'].length; j++) {
+                  const commentingUser = post['commentingUsers'][j];
+                  const comment = post['comments'][j];
+
+                  document.getElementById(`comment-section-${i}`).innerHTML += /*html*/ `
+                    <div class="comment-container">
+                        <h3>${commentingUser}</h3>
+                        <p>${comment}</p>
+                    </div>
+                  `;
+            }
+            renderLikes(i);
+      }
+}
+
+function getSavedArrays() {
+      for (let i = 0; i < posts.length; i++) {
+            const post = posts[i];
+
+            if (getArray(`${i}-commentingUsers`) !== null && getArray(`${i}-comments`) !== null) {
+                  post['commentingUsers'] = getArray(`${i}-commentingUsers`);
+                  post['comments'] = getArray(`${i}-comments`);
+            }
+
+            if (getArray(`${i}-liked`) !== null && getArray(`${i}-likes`) !== null) {
+                  post['liked'] = getArray(`${i}-liked`);
+                  post['likes'] = getArray(`${i}-likes`);
+            }
+      }
+}
+
+function generatePostAreaHTML(post, i) {
+      return /*html*/ `
                         <div class="post-header">
                             <img class="profile-img" src="${post['profileImage']}">
                             <div class="info-container">
@@ -70,24 +103,7 @@ function render() {
                             <input id="comment-input-${i}" class="display-none">
                             <button onclick="addComment(${i})" id="add-comment-button-${i}" class="display-none">Posten</button>
                         </div>
-                    
-
-
-        
-        `;
-            for (let j = 0; j < post['comments'].length; j++) {
-                  const commentingUser = post['commentingUsers'][j];
-                  const comment = post['comments'][j];
-
-                  document.getElementById(`comment-section-${i}`).innerHTML += /*html*/ `
-                    <div class="comment-container">
-                        <h3>${commentingUser}</h3>
-                        <p>${comment}</p>
-                    </div>
-                  `;
-            }
-            renderLikes(i);
-      }
+                      `;
 }
 
 function renderLikes(currentPost) {
@@ -120,22 +136,6 @@ function toggleLike(currentPost) {
       setArray(`${currentPost}-likes`, posts[currentPost]['likes']);
 
       render();
-}
-
-function getSavedArrays() {
-      for (let i = 0; i < posts.length; i++) {
-            const post = posts[i];
-
-            if (getArray(`${i}-commentingUsers`) !== null && getArray(`${i}-comments`) !== null) {
-                  post['commentingUsers'] = getArray(`${i}-commentingUsers`);
-                  post['comments'] = getArray(`${i}-comments`);
-            }
-
-            if (getArray(`${i}-liked`) !== null && getArray(`${i}-likes`) !== null) {
-                  post['liked'] = getArray(`${i}-liked`);
-                  post['likes'] = getArray(`${i}-likes`);
-            }
-      }
 }
 
 function showCommentInput(currentPost) {
